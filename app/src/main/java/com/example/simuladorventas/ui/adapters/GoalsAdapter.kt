@@ -1,10 +1,12 @@
 package com.example.simuladorventas.ui.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.simuladorventas.R
 import com.example.simuladorventas.databinding.ItemGoalBinding
 import com.example.simuladorventas.datos.model.CreditGoal
 import com.example.simuladorventas.utils.Formatters
@@ -20,7 +22,7 @@ class GoalsAdapter(
             parent,
             false
         )
-        return GoalViewHolder(binding)
+        return GoalViewHolder(binding, parent.context)
     }
 
     override fun onBindViewHolder(holder: GoalViewHolder, position: Int) {
@@ -29,7 +31,8 @@ class GoalsAdapter(
     }
 
     inner class GoalViewHolder(
-        private val binding: ItemGoalBinding
+        private val binding: ItemGoalBinding,
+        private val context: Context
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(goal: CreditGoal) {
@@ -44,7 +47,6 @@ class GoalsAdapter(
                 )
                 progressBar.progress = (goal.calculateProgress() * 100).toInt()
 
-                // Cambiar color según estado
                 val colorRes = if (goal.isAchieved) R.color.success else R.color.colorPrimary
                 progressBar.setIndicatorColor(context.getColor(colorRes))
 
