@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/salesFragment">
+
+    <!-- Fragmento de Ventas -->
+    <fragment
+        android:id="@+id/salesFragment"
+        android:name="com.example.simuladorventas.ui.fragments.SalesFragment"
+        android:label="@string/title_sales"
+        tools:layout="@layout/fragment_sales">
+        
+        <action
+            android:id="@+id/action_sales_to_saleDetail"
+            app:destination="@id/saleDetailFragment" />
+            
+        <action
+            android:id="@+id/action_sales_to_analytics"
+            app:destination="@id/analyticsFragment" />
+    </fragment>
+
+    <!-- Fragmento de Objetivos -->
+    <fragment
+        android:id="@+id/goalsFragment"
+        android:name="com.example.simuladorventas.ui.fragments.GoalsFragment"
+        android:label="@string/title_goals"
+        tools:layout="@layout/fragment_goals">
+        
+        <action
+            android:id="@+id/action_goals_to_goalDetail"
+            app:destination="@id/goalDetailFragment" />
+            
+        <action
+            android:id="@+id/action_goals_to_newGoal"
+            app:destination="@id/newGoalFragment" />
+    </fragment>
+
+    <!-- Fragmento de Análisis -->
+    <fragment
+        android:id="@+id/analyticsFragment"
+        android:name="com.example.simuladorventas.ui.fragments.AnalyticsFragment"
+        android:label="@string/title_analytics"
+        tools:layout="@layout/fragment_analytics" />
+
+    <!-- Fragmento de Detalle de Venta -->
+    <fragment
+        android:id="@+id/saleDetailFragment"
+        android:name="com.example.simuladorventas.ui.fragments.SaleDetailFragment"
+        android:label="@string/title_sale_detail"
+        tools:layout="@layout/fragment_sale_detail" />
+
+    <!-- Fragmento de Detalle de Objetivo -->
+    <fragment
+        android:id="@+id/goalDetailFragment"
+        android:name="com.example.simuladorventas.ui.fragments.GoalDetailFragment"
+        android:label="@string/title_goal_detail"
+        tools:layout="@layout/fragment_goal_detail" />
+
+    <!-- Fragmento de Nuevo Objetivo -->
+    <fragment
+        android:id="@+id/newGoalFragment"
+        android:name="com.example.simuladorventas.ui.fragments.NewGoalFragment"
+        android:label="@string/title_new_goal"
+        tools:layout="@layout/fragment_new_goal" />
+</navigation>
