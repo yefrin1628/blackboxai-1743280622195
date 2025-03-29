@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="2dp"
+    app:cardCornerRadius="8dp"
+    android:layout_marginBottom="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Descripción del objetivo -->
+        <TextView
+            android:id="@+id/tvDescription"
+            style="@style/Text.Subheader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Objetivo de ventas trimestral"/>
+
+        <!-- Barra de progreso -->
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_marginTop="8dp"
+            app:trackColor="@color/colorPrimaryLight"
+            app:indicatorColor="@color/colorPrimary"
+            android:max="100"/>
+
+        <!-- Detalles del objetivo -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                style="@style/Text.Body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_target"/>
+
+            <TextView
+                android:id="@+id/tvTargetAmount"
+                style="@style/Text.Body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                tools:text="$10,000.00"/>
+
+            <TextView
+                style="@style/Text.Body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/label_current"/>
+
+            <TextView
+                android:id="@+id/tvCurrentAmount"
+                style="@style/Text.Body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                tools:text="$5,000.00"/>
+        </LinearLayout>
+
+        <!-- Fecha y días restantes -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="4dp">
+
+            <TextView
+                style="@style/Text.Body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_end_date"/>
+
+            <TextView
+                android:id="@+id/tvEndDate"
+                style="@style/Text.Body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                tools:text="31/12/2023"/>
+
+            <TextView
+                android:id="@+id/tvDaysRemaining"
+                style="@style/Text.Body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                tools:text="(30 días restantes)"/>
+        </LinearLayout>
+
+        <!-- Botón para agregar monto -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAddAmount"
+            style="@style/Widget.SimuladorVentas.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/action_add_amount"
+            app:icon="@drawable/ic_add"
+            app:iconGravity="textStart"/>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
