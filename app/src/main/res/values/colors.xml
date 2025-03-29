@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Paleta principal (azules corporativos) -->
+    <color name="colorPrimary">#2C387E</color>
+    <color name="colorPrimaryDark">#1A237E</color>
+    <color name="colorPrimaryLight">#9FA8DA</color>
+    <color name="colorAccent">#00ACC1</color> <!-- Cyan como acento -->
+    
+    <!-- Textos -->
+    <color name="textPrimary">#212121</color>
+    <color name="textSecondary">#757575</color>
+    <color name="textOnPrimary">#FFFFFF</color>
+    <color name="textOnAccent">#FFFFFF</color>
+    
+    <!-- Fondos y superficies -->
+    <color name="background">#F5F5F5</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="error">#E53935</color>
+    
+    <!-- Colores para gráficos -->
+    <color name="chart_sales">#4CAF50</color> <!-- Verde para ventas -->
+    <color name="chart_goals">#2196F3</color> <!-- Azul para objetivos -->
+    <color name="chart_projection">#FFC107</color> <!-- Amarillo para proyecciones -->
+    
+    <!-- Estados y feedback -->
+    <color name="success">#4CAF50</color>
+    <color name="warning">#FF9800</color>
+    <color name="error">#F44336</color>
+    <color name="divider">#E0E0E0</color>
+    
+    <!-- Sombras y elevaciones -->
+    <color name="shadow">#1F000000</color>
+</resources>
