@@ -1,86 +1,49 @@
-package com.example.simuladorventas.viewmodel
-
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.simuladorventas.datos.model.Sale
-import com.example.simuladorventas.datos.repository.SalesRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
-import java.util.*
-import javax.inject.Inject
-
-/**
- * ViewModel para manejar la lógica relacionada con ventas.
- * 
- * Expone:
- * - Estado actual de las ventas
- * - Métodos para operaciones CRUD
- * - Cálculos de proyecciones
- * 
- * Maneja:
- * - Carga asíncrona de datos
- * - Validación de entradas
- * - Actualización de UI
- */
 @HiltViewModel
 class SalesViewModel @Inject constructor(
     private val repository: SalesRepository
 ) : ViewModel() {
-    private val _sales = MutableStateFlow<List<Sale>>(emptyList())
-    val sales: StateFlow<List<Sale>> = _sales.asStateFlow()
 
-    private val _currentMonthTotal = MutableStateFlow(0.0)
-    val currentMonthTotal: StateFlow<Double> = _currentMonthTotal.asStateFlow()
+    private val _sales = MutableLiveData<List<Sale>>()
+    val sales: LiveData<List<Sale>> = _sales
+
+    private val _monthlyTotal = MutableLiveData<Double>()
+    val monthlyTotal: LiveData<Double> = _monthlyTotal
+
+    private val _state = MutableLiveData<SalesState>()
+    val state: LiveData<SalesState> = _state
 
     init {
-        loadAllSales()
-        loadCurrentMonthTotal()
+        loadSales()
     }
 
-    private fun loadAllSales() {
+    fun loadSales() {
+        _state.value = SalesState.Loading
         viewModelScope.launch {
-            repository.getAllSales().collect { salesList ->
-                _sales.value = salesList
+            try {
+                val sales = repository.getSales()
+                _sales.value = sales
+                _monthlyTotal.value = sales.sumOf { it.totalPrice() }
+                _state.value = SalesState.Success
+            } catch (e: Exception) {
+                _state.value = SalesState.Error(e.message ?: "Error desconocido")
             }
-        }
-    }
-
-    private fun loadCurrentMonthTotal() {
-        viewModelScope.launch {
-            _currentMonthTotal.value = repository.getCurrentMonthSales()
         }
     }
 
     fun addSale(sale: Sale) {
         viewModelScope.launch {
-            repository.addSale(sale)
-        }
-    }
-
-    fun updateSale(sale: Sale) {
-        viewModelScope.launch {
-            repository.updateSale(sale)
-        }
-    }
-
-    fun deleteSale(sale: Sale) {
-        viewModelScope.launch {
-            repository.deleteSale(sale)
-        }
-    }
-
-    fun getSalesBetweenDates(start: Date, end: Date) {
-        viewModelScope.launch {
-            repository.getSalesByDateRange(start, end).collect { salesList ->
-                _sales.value = salesList
+            try {
+                repository.addSale(sale)
+                loadSales()
+            } catch (e: Exception) {
+                _state.value = SalesState.Error("Error al agregar venta")
             }
         }
     }
 
-    fun calculateProjection(profitPercentage: Double): Double {
-        return _currentMonthTotal.value * (1 + profitPercentage/100)
+    sealed class SalesState {
+        object Loading : SalesState()
+        object Success : SalesState()
+        data class Error(val message: String) : SalesState()
     }
 }
