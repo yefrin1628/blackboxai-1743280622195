@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Elemento para Ventas -->
+    <item
+        android:id="@+id/salesFragment"
+        android:icon="@drawable/ic_sales"
+        android:title="@string/title_sales"
+        android:contentDescription="@string/desc_sales_tab" />
+        
+    <!-- Elemento para Objetivos -->
+    <item
+        android:id="@+id/goalsFragment"
+        android:icon="@drawable/ic_goals"
+        android:title="@string/title_goals"
+        android:contentDescription="@string/desc_goals_tab" />
+        
+    <!-- Elemento para Análisis -->
+    <item
+        android:id="@+id/analyticsFragment"
+        android:icon="@drawable/ic_analytics"
+        android:title="@string/title_analytics"
+        android:contentDescription="@string/desc_analytics_tab" />
+</menu>
