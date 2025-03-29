@@ -1,30 +1,43 @@
 package com.example.simuladorventas.di
 
+import android.content.Context
 import com.example.simuladorventas.datos.database.AppDatabase
 import com.example.simuladorventas.datos.repository.SalesRepository
 import com.example.simuladorventas.datos.repository.GoalsRepository
-import org.koin.dsl.module
+import com.example.simuladorventas.datos.dao.SaleDao
+import com.example.simuladorventas.datos.dao.GoalDao
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
-/**
- * Módulo principal de inyección de dependencias para la aplicación.
- * Proporciona instancias únicas de:
- * - Base de datos Room
- * - Repositorios
- * - ViewModels
- */
-val module = module {
-    // Database
-    single { AppDatabase.getDatabase(get()) }
-    
-    // DAOs
-    single { get<AppDatabase>().saleDao() }
-    single { get<AppDatabase>().goalDao() }
-    
-    // Repositories
-    single { SalesRepository(get()) }
-    single { GoalsRepository(get()) }
-    
-    // ViewModels
-    viewModel { SalesViewModel(get()) }
-    viewModel { GoalsViewModel(get()) }
+@Module
+@InstallIn(SingletonComponent::class)
+object AppModule {
+
+    @Provides
+    @Singleton
+    fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
+        return AppDatabase.getDatabase(context)
+    }
+
+    @Provides
+    fun provideSaleDao(database: AppDatabase): SaleDao = database.saleDao()
+
+    @Provides
+    fun provideGoalDao(database: AppDatabase): GoalDao = database.goalDao()
+
+    @Provides
+    @Singleton
+    fun provideSalesRepository(saleDao: SaleDao): SalesRepository {
+        return SalesRepository(saleDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGoalsRepository(goalDao: GoalDao): GoalsRepository {
+        return GoalsRepository(goalDao)
+    }
 }
